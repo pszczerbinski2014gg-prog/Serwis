@@ -1,0 +1,22 @@
+extends ../layout
+
+block content
+  h1= title
+
+  if error
+    p.error= error
+
+  if errors && errors.errors
+    each message in errors.errors
+        p= message.msg ? message.msg : message
+
+  form(method='POST', action='/admin/news/add')
+    div
+      label(for='title') Tytuł:
+      input(type='text', name='title', id='title' value=body.title || '')
+    div
+      label(for='description') Opis:
+      textarea(name='description', id='description')=body.description || ''
+    div
+      button(type='submit') Zapisz
+  
