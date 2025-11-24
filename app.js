@@ -7,10 +7,13 @@ var logger = require('morgan');
 var config = require('./config');
 var mongoose = require('mongoose');
 
-mongoose
-  .connect(config.db)
-  .then(() => console.log('Połączono z bazą MongoDB!'))
-  .catch((err) => console.log('Błąd połączenia:', err));
+mongoose.connect(config.db, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  serverSelectionTimeoutMS: 30000, // 30 sekund
+})
+.then(() => console.log('Połączono z bazą MongoDB!'))
+.catch((err) => console.log('Błąd połączenia:', err));
 
 var indexRouter = require('./routes/index');
 var newsRouter = require('./routes/news');
