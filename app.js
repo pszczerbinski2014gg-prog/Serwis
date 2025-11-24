@@ -10,9 +10,18 @@ var config = require('./config');
 var mongoose = require('mongoose');
 
 mongoose
-  .connect(process.env.DB_KEY, {})
-  .then(() => console.log('Połączono z bazą MongoDB!'))
-  .catch((err) => console.log('Błąd połączenia:', err));
+  .connect(process.env.DB_KEY, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => {
+    console.log('✅ Połączono z MongoDB!');
+    process.exit(0);
+  })
+  .catch((err) => {
+    console.error('❌ Błąd połączenia:', err.message);
+    process.exit(1);
+  });
 
 var indexRouter = require('./routes/index');
 var newsRouter = require('./routes/news');
