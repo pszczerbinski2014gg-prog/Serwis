@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 var createError = require('http-errors');
 var cookieSession = require('cookie-session');
 var express = require('express');
@@ -7,13 +9,10 @@ var logger = require('morgan');
 var config = require('./config');
 var mongoose = require('mongoose');
 
-mongoose.connect(config.db, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  serverSelectionTimeoutMS: 30000, // 30 sekund
-})
-.then(() => console.log('Połączono z bazą MongoDB!'))
-.catch((err) => console.log('Błąd połączenia:', err));
+mongoose
+  .connect(process.env.DB_KEY, {})
+  .then(() => console.log('Połączono z bazą MongoDB!'))
+  .catch((err) => console.log('Błąd połączenia:', err));
 
 var indexRouter = require('./routes/index');
 var newsRouter = require('./routes/news');
