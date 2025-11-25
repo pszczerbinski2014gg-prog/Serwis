@@ -12,15 +12,11 @@ var mongoose = require('mongoose');
 mongoose
   .connect(process.env.DB_KEY, {
    
+    tls: true, // wymusza SSL/TLS
+   
   })
-  .then(() => {
-    console.log('✅ Połączono z MongoDB!');
-    process.exit(0);
-  })
-  .catch((err) => {
-    console.error('❌ Błąd połączenia:', err.message);
-    process.exit(1);
-  });
+  .then(() => console.log('✅ Połączono z MongoDB!'))
+  .catch((err) => console.error('❌ Błąd połączenia:', err.message));
 
 var indexRouter = require('./routes/index');
 var newsRouter = require('./routes/news');
